@@ -20,10 +20,10 @@ def comprobar_taboleiro(nxogador,tab):
 	simb = "X" if nxogador == 1 else "O"
 	for i in range(len(tab)):
 		if 		(("".join(tab[i]).replace(" ","") == simb*3)
-			or 	("".join([tab[0][i],tab[1][i],tab[2][i]]).replace(" ","") == simb*3)
-			or 	("".join([tab[0][0],tab[1][1],tab[2][2]]).replace(" ","") == simb*3)
-			or 	("".join([tab[2][0],tab[1][1],tab[0][2]]).replace(" ","") == simb*3)
-		):
+			or 	("".join([tab[0][i],tab[1][i],tab[2][i]]).replace(" ","") == simb*3)):
+			return nxogador
+		if (("".join([tab[0][0],tab[1][1],tab[2][2]]).replace(" ","") == simb*3)
+			or 	("".join([tab[2][0],tab[1][1],tab[0][2]]).replace(" ","") == simb*3)):
 			return nxogador
 	return None
 	
