@@ -113,6 +113,11 @@ while on:
 	
 	for evento in pygame.event.get():
 	
+		if evento.type == pygame.KEYDOWN:
+			if evento.key == K_SPACE:
+				lista_casillas = [[0,0,0],[0,0,0],[0,0,0]]
+				ganador = False
+
 		#EXIT
 		
 		if evento.type == pygame.QUIT:
