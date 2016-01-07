@@ -21,25 +21,29 @@ COLOR_VICTORIA = [100,200,100]
 ANCHO_VENTANA = ANCHO_CADRO*3 + MARCO*2
 ALTO_VENTANA = ALTO_CADRO*3 + MARCO*2
 
+lista_casillas = [[0,0,0],[0,0,0],[0,0,0]]
+lista_colores = [[0,0,0],[0,0,0],[0,0,0]]
+
 #FUNCIÓNS
 
 def enraia(list,xogador):
-	for linha in list:
-		if "".join(map(str, linha)) == str(xogador)*3:
+	for linha in range(len(list)):
+		if "".join(map(str, list[linha])) == str(xogador)*3:
+			lista_colores[linha] = [1,1,1]
 			return True
 	for columna in range(len(list)):
 		if "".join(map(str, [list[0][columna],list[1][columna],list[2][columna]])) == str(xogador)*3:
+			lista_colores[0][columna],lista_colores[1][columna],lista_colores[2][columna] = 1,1,1
 			return True
-	if ("".join(map(str, [list[0][0],list[1][1],list[2][2]])) == str(xogador)*3
-		or "".join(map(str, [list[0][2],list[1][1],list[2][0]])) == str(xogador)*3):
+	if "".join(map(str, [list[0][0],list[1][1],list[2][2]])) == str(xogador)*3:
+		lista_colores[0][0],lista_colores[1][1],lista_colores[2][2] = 1,1,1
+		return True
+	if "".join(map(str, [list[0][2],list[1][1],list[2][0]])) == str(xogador)*3:
+		lista_colores[0][2],lista_colores[1][1],lista_colores[2][0] = 1,1,1
 		return True
 	return False
 	
 #XOGO
-
-lista_casillas = [	[0,0,0],
-					[0,0,0],
-					[0,0,0]]
 
 ganador = False
 casilla_rato = False
@@ -70,7 +74,7 @@ while on:
 							ANCHO_CADRO, ALTO_CADRO)
 				pygame.draw.rect(ventana, [240,240,240], rect_sel)
 			#DEBUXAR GAÑADORES
-			if ganador and lista_casillas[linha][casilla] == ganador:
+			if ganador and lista_colores[linha][casilla]:
 				rect_ganador = pygame.Rect(MARCO+ANCHO_CADRO*casilla, MARCO+ALTO_CADRO*linha, 
 							ANCHO_CADRO, ALTO_CADRO)
 				pygame.draw.rect(ventana, COLOR_VICTORIA, rect_ganador)
@@ -116,6 +120,7 @@ while on:
 		if evento.type == pygame.KEYDOWN:
 			if evento.key == K_SPACE:
 				lista_casillas = [[0,0,0],[0,0,0],[0,0,0]]
+				lista_colores = [[0,0,0],[0,0,0],[0,0,0]]
 				ganador = False
 
 		#EXIT
